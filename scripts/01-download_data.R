@@ -14,6 +14,6 @@ library(haven)
 esg_data <-read_dta("data/raw_data/2396_ESG_Data_v1.0.dta")
 
 ## Save data ##
-write_csv(esg_data, "data/raw_data.csv") 
+write_csv(esg_data, "data/raw_data/raw_data.csv") 
 
          
