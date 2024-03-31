@@ -1,26 +1,19 @@
 #### Preamble ####
-# Purpose: Downloads and saves the data from [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Downloads the required raw data to use in data cleaning
+# Author: Krishiv Jain
+# Date: 31 March 2024
+# Contact: krishiv.jain@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: None
 
-
-#### Workspace setup ####
-library(opendatatoronto)
+## Workspace setup ##
 library(tidyverse)
-# [...UPDATE THIS...]
+library(haven)
 
-#### Download data ####
-# [...ADD CODE HERE TO DOWNLOAD...]
+## Download data ##
+esg_data <-read_dta("data/raw_data/2396_ESG_Data_v1.0.dta")
 
-
-
-#### Save data ####
-# [...UPDATE THIS...]
-# change the_raw_data to whatever name you assigned when you downloaded it.
-write_csv(the_raw_data, "inputs/data/raw_data.csv") 
+## Save data ##
+write_csv(esg_data, "data/raw_data.csv") 
 
          
