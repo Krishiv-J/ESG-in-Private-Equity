@@ -10,7 +10,7 @@
 library(tidyverse)
 library(haven)
 
-## Download data ##
+## Download paper's raw data ##
 esg_data <-read_dta("data/raw_data/2396_ESG_Data_v1.0.dta")
 
 ## Save data ##
