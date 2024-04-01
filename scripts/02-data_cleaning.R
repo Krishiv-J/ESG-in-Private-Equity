@@ -1,44 +1,54 @@
 #### Preamble ####
-# Purpose: Cleans the raw plane data recorded by two observers..... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 6 April 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Cleans the raw data set prior to analysis and model creation
+# Author: Krishiv Jain
+# Date: 31 March 2024
+# Contact: krishiv.jain@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: None
 
 #### Workspace setup ####
 library(tidyverse)
 
 #### Clean data ####
-raw_data <- read_csv("inputs/data/plane_data.csv")
+raw_data <- read_csv("data/raw_data/raw_data.csv")
 
-cleaned_data <-
-  raw_data |>
-  janitor::clean_names() |>
-  select(wing_width_mm, wing_length_mm, flying_time_sec_first_timer) |>
-  filter(wing_width_mm != "caw") |>
-  mutate(
-    flying_time_sec_first_timer = if_else(flying_time_sec_first_timer == "1,35",
-                                   "1.35",
-                                   flying_time_sec_first_timer)
-  ) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "490",
-                                 "49",
-                                 wing_width_mm)) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "6",
-                                 "60",
-                                 wing_width_mm)) |>
-  mutate(
-    wing_width_mm = as.numeric(wing_width_mm),
-    wing_length_mm = as.numeric(wing_length_mm),
-    flying_time_sec_first_timer = as.numeric(flying_time_sec_first_timer)
-  ) |>
-  rename(flying_time = flying_time_sec_first_timer,
-         width = wing_width_mm,
-         length = wing_length_mm
-         ) |> 
-  tidyr::drop_na()
+# Remove Unneeded Columns #
+
+raw_data$established <- NULL
+raw_data$International <- NULL
+raw_data$Auditor_pct <- NULL
+raw_data$Avg_vintage <- NULL
+raw_data$Scale_number_portfolio_companies <- NULL
+raw_data$EastCoast <- NULL
+raw_data$WestCoast <- NULL
+raw_data$OtherUSLocation <- NULL
+raw_data$Total_EorSDocsOrMedia <- NULL
+raw_data$Total_EorSDocsOrMedia_2 <- NULL
+raw_data$Total_GreenwashingScore_1 <- NULL
+raw_data$Total_GreenwashingScore_2 <- NULL
+raw_data$Other_GreenwashingScore_1 <- NULL
+raw_data$Other_GreenwashingScore_2 <- NULL
+raw_data$VCGrowthCapital <- NULL
+raw_data$Firm_age <- NULL
+raw_data$Log_Staffcount <- NULL
+raw_data$LogFundSize_Calvin <- NULL
+raw_data$LogFundSize_Preqin <- NULL
+raw_data$Public <- NULL
+raw_data$FundSize_Calvin <- NULL
+raw_data$Sum_wirr_preqin <- NULL
+raw_data$Diversified <- NULL
+raw_data$Healthcare <- NULL
+raw_data$Technology <- NULL
+raw_data$ConsumerGoods <- NULL
+raw_data$OtherIndustry <- NULL
+raw_data$MissingIRR <- NULL
+raw_data$BuyoutFund <- NULL
+raw_data$Sum_wtvpi <- NULL
+raw_data$Totalfundsraised10yearsmn <- NULL
+
+
+## New Employee Added ##
+raw_data$Totalfundsraised10yearsmn <- NULL
 
 #### Save data ####
-write_csv(cleaned_data, "outputs/data/analysis_data.csv")
+write_csv(raw_data, "data/analysis_data/cleaned_data1.csv")
