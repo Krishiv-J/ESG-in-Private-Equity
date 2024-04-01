@@ -68,8 +68,6 @@ raw_data$Total_WeightedESGScore_6 <- NULL
 raw_data$Total_WeightedESGScore_7 <- NULL
 raw_data$Total_WeightedESGScore_8 <- NULL
 
-
-
 # Add New Employee #
 raw_data$Staffcounttotal <- NULL
 raw_data$Staff <- employee_data$`No. of Employees`
