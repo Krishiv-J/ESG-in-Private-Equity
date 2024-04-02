@@ -1,13 +1,12 @@
 ---
-title: "My title"
-subtitle: "My subtitle if needed"
+title: "Top Private Equity Firms with Larger Average Fund Sizes and Lower Internal Rate of Returns (IRRs) in the United States Give ESG a Higher Importance"
+subtitle: "A reproduction using data from the United States and a case study from Europe" 
 author: 
-  - First author
-  - Another author
-thanks: "Code and data are available at: LINK."
+  - Krishiv Jain
+thanks: "Code and data are available at: https://github.com/Krishiv-J/ESG-in-Private-Equity"
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "Concerns have been raised that private equity firms in the United States, who make significant contributions towards both the economy and society, do not give enough importance towards ESG. This paper aims to improve upon the work done and data collected in the ESG in the Top 100 US Private Equity Firms paper by fixing certain data inaccuracies, and considering different variables of interest. The analysis is extended to a case study in Europe. We find that in both regions, the average fund size and their IRR can be used to make reasonable predictions about their focus on ESG, whereas the number of employees that have is irrelevant."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -25,114 +24,46 @@ library(palmerpenguins)
 
 # Introduction
 
-You can and should cross-reference sections and sub-sections. We use @citeR and @rohan.
+The corporate landscape is rapidly evolving, with a notable shift towards greater responsibility and transparency, spurred by the rise of Environmental, Social, and Governance (ESG) considerations. While ESG has gained traction in publicly traded companies, there is a significant gap in understanding the ESG practices of private equity (PE) firms, despite their immense global impact. This gap is particularly surprising given the influential role PE firms play in the economy and their potential impact on ESG. This paper aims to address this gap by investigating the determinants and practices of ESG within PE firms.
 
-The remainder of this paper is structured as follows. @sec-data....
+This paper aims to reproduce the Top 100 US Private Equity Firms paper. That paper focuses on the top 100 PE firms based in the United States, conducting a thorough analysis of their ESG practices through content analysis of their websites. The findings reveal a notable lack of comprehensive ESG disclosures among PE firms, with only a minority providing substantial information on their environmental, social, and governance initiatives. This paper aims to improve upon their work by firstly amending the data collected for certain variables, such as number of employees. Next, this paper calculates next metrics, such as average fund size. Lastly, the paper focuses on different predictor variable. The reasons for each improvement is detailed in the paper.  
 
+Understanding the ESG practices of PE firms is crucial for promoting transparency, accountability, and sustainable business practices in the global economy. By uncovering the current state of ESG engagement within PE firms and identifying factors that influence these practices, this study contributes to the broader discourse on corporate responsibility and fills a significant gap in the literature. 
+
+This paper is structured as follows. In Section 2, the source of the data, the methodology of data collection and cleaning, and the changes made to the data set is detailed. Section 3 discusses the choice and construction of our logistic model to make predictions about private equity firms. Section 4 presents the model's results. Section 5 draws upon the relevance of these results to Europe. Section 6 talks about the implications, ethical considerations, and limitations of our work. 
 
 
 # Data {#sec-data}
 
-Some of our data is of penguins (@fig-bills), from @palmerpenguins.
 
 ```{r}
-#| label: fig-bills
-#| fig-cap: Bills of penguins
-#| echo: false
 
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
 ```
 
-Talk more about it.
-
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
 
 ```{r}
-#| label: fig-planes
-#| fig-cap: Relationship between wing length and width
-#| echo: false
-#| warning: false
-#| message: false
 
-analysis_data <- read_csv(here::here("data/analysis_data/analysis_data.csv"))
 
-analysis_data |> 
-  ggplot(aes(x = width, y = length)) +
-  geom_point(alpha = 0.8) +
-  theme_minimal() +
-  labs(x = "Wing width (mm)",
-       y = "Wing length (mm)")
 ```
-
-Talk way more about it. 
-
-
 
 # Model
 
-The goal of our modelling strategy is twofold. Firstly,...
-
-Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
-
 ## Model set-up
-
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
-
-\begin{align} 
-y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
-\mu_i &= \alpha + \beta_i + \gamma_i\\
-\alpha &\sim \mbox{Normal}(0, 2.5) \\
-\beta &\sim \mbox{Normal}(0, 2.5) \\
-\gamma &\sim \mbox{Normal}(0, 2.5) \\
-\sigma &\sim \mbox{Exponential}(1)
-\end{align}
-
-We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
 
 
 ### Model justification
 
-We expect a positive relationship between the size of the wings and time spent aloft. In particular...
-
-We can use maths by including latex between dollar signs, for instance $\theta$.
-
-
 # Results
 
-Our results are summarized in @tbl-modelresults.
 
 ```{r}
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
 
-library(rstanarm)
 
-first_model <-
-  readRDS(file = here::here("models/first_model.rds"))
 ```
 
 ```{r}
-#| echo: false
-#| eval: true
-#| label: tbl-modelresults
-#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
-#| warning: false
 
-modelsummary::modelsummary(
-  list(
-    "First model" = first_model
-  ),
-  statistic = "mad",
-  fmt = 2
-)
+
 ```
 
 
@@ -142,7 +73,6 @@ modelsummary::modelsummary(
 
 ## First discussion point {#sec-first-point}
 
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
 
 ## Second discussion point
 
@@ -150,7 +80,6 @@ If my paper were 10 pages, then should be be at least 2.5 pages. The discussion 
 
 ## Weaknesses and next steps
 
-Weaknesses and next steps should also be included.
 
 \newpage
 
@@ -165,50 +94,16 @@ Weaknesses and next steps should also be included.
 
 ## Posterior predictive check
 
-In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
-
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
 
 ```{r}
-#| eval: true
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-ppcheckandposteriorvsprior
-#| layout-ncol: 2
-#| fig-cap: "Examining how the model fits, and is affected by, the data"
-#| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
 
-pp_check(first_model) +
-  theme_classic() +
-  theme(legend.position = "bottom")
-
-posterior_vs_prior(first_model) +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom") +
-  coord_flip()
 ```
 
 ## Diagnostics
 
-@fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
-
-@fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
 
 ```{r}
-#| echo: false
-#| eval: true
-#| message: false
-#| warning: false
-#| label: fig-stanareyouokay
-#| fig-cap: "Checking the convergence of the MCMC algorithm"
-#| fig-subcap: ["Trace plot", "Rhat plot"]
-#| layout-ncol: 2
 
-plot(first_model, "trace")
-
-plot(first_model, "rhat")
 ```
 
 
