@@ -14,7 +14,10 @@ library(arrow)
 raw_data <- read_csv("data/raw_data/raw_data.csv")
 employee_data <- read_csv("data/raw_data/employee_data.csv")
 
-# Remove Unneeded Columns #
+### Remove Unneeded Columns ###
+
+
+## Removing "general" information ##
 
 raw_data$established <- NULL
 raw_data$International <- NULL
@@ -26,12 +29,37 @@ raw_data$WestCoast <- NULL
 raw_data$OtherUSLocation <- NULL
 raw_data$Total_EorSDocsOrMedia <- NULL
 raw_data$Total_EorSDocsOrMedia_2 <- NULL
+raw_data$VCGrowthCapital <- NULL
+raw_data$Firm_age <- NULL
+
+## Removing Calculated Greenwashing Columns ##
+
+raw_data$E_GreenwashingScore_1 <- NULL
 raw_data$Total_GreenwashingScore_1 <- NULL
 raw_data$Total_GreenwashingScore_2 <- NULL
 raw_data$Other_GreenwashingScore_1 <- NULL
 raw_data$Other_GreenwashingScore_2 <- NULL
-raw_data$VCGrowthCapital <- NULL
-raw_data$Firm_age <- NULL
+raw_data$High_Frameworks <- NULL
+raw_data$Medium_Frameworks <- NULL
+raw_data$Low_Frameworks <- NULL
+raw_data$Low_Medium_Frameworks <- NULL
+
+## Removing Information used to calculate High/Low Framework ##
+
+raw_data$Other_AlignwithSDGs <- NULL
+raw_data$Other_AdoptSASBstandards <- NULL
+raw_data$S_SponsorLevel20 <- NULL
+raw_data$E_AdoptTCFD <- NULL
+raw_data$E_CarbonNeutralProtocolCert <- NULL
+raw_data$E_SignatoryNetZeroAsset <- NULL  
+raw_data$E_SignatorytoICI <- NULL
+raw_data$Other_SignatoryPRI <- NULL
+raw_data$Other_AdoptAICGuidelines <- NULL
+raw_data$S_SignatoryILPADiversity <- NULL
+raw_data$S_SignatoryCEOAction <- NULL
+
+
+
 raw_data$Log_Staffcount <- NULL
 raw_data$LogFundSize_Calvin <- NULL
 raw_data$LogFundSize_Preqin <- NULL
@@ -47,6 +75,9 @@ raw_data$MissingIRR <- NULL
 raw_data$BuyoutFund <- NULL
 raw_data$Sum_wtvpi <- NULL
 raw_data$Totalfundsraised10yearsmn <- NULL
+
+## Removing Weighted Scores ##
+
 raw_data$E_WeightedESGScore_1 <- NULL
 raw_data$E_WeightedESGScore_2 <- NULL
 raw_data$E_WeightedESGScore_5 <- NULL
