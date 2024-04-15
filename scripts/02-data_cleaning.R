@@ -35,6 +35,9 @@ raw_data$Firm_age <- NULL
 ## Removing Calculated Greenwashing Columns ##
 
 raw_data$E_GreenwashingScore_1 <- NULL
+raw_data$E_GreenwashingScore_2 <- NULL
+raw_data$S_GreenwashingScore_1 <- NULL
+raw_data$S_GreenwashingScore_2 <- NULL
 raw_data$Total_GreenwashingScore_1 <- NULL
 raw_data$Total_GreenwashingScore_2 <- NULL
 raw_data$Other_GreenwashingScore_1 <- NULL
@@ -75,6 +78,17 @@ raw_data$MissingIRR <- NULL
 raw_data$BuyoutFund <- NULL
 raw_data$Sum_wtvpi <- NULL
 raw_data$Totalfundsraised10yearsmn <- NULL
+
+raw_data$E_ALLSignatory <- NULL
+raw_data$S_ALLSignatory <- NULL
+raw_data$E_navigationalpage <- NULL
+raw_data$S_navigationalpage <- NULL
+raw_data$S_DEIpolicy <- NULL
+raw_data$S_DEIcommittee <- NULL
+raw_data$S_ChiefDiversityOfficer <- NULL
+raw_data$S_10pctWomeninBoard <- NULL
+raw_data$S_10pctWomeninLeadership <- NULL
+
 
 ## Removing Weighted Scores ##
 
