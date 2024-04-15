@@ -88,6 +88,12 @@ raw_data$S_DEIcommittee <- NULL
 raw_data$S_ChiefDiversityOfficer <- NULL
 raw_data$S_10pctWomeninBoard <- NULL
 raw_data$S_10pctWomeninLeadership <- NULL
+raw_data$E_HasDocumentsorPages <- NULL
+raw_data$S_HasDocumentsorPages <- NULL
+raw_data$E_HasDocsOrMedia	<- NULL
+raw_data$E_HasDocsOrMedia_2	<- NULL
+raw_data$S_HasDocsOrMedia	<- NULL
+raw_data$S_HasDocsOrMedia_2 <- NULL
 
 
 ## Removing Weighted Scores ##
