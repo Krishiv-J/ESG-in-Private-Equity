@@ -145,7 +145,26 @@ raw_data$ESG_Score <- (raw_data$HasESGonWebsite + raw_data$E_Portfoliocasestudie
                          raw_data$S_HasDocumentsorPages + raw_data$G_HasDocumentsorPages +
                          raw_data$Other_HasESGHeadorCommittee)
 
-
+#### Remove Columns used in Calculation ####
+raw_data$HasESGonWebsite <- NULL
+raw_data$E_Portfoliocasestudies <- NULL
+raw_data$E_Media <- NULL
+raw_data$S_Portfoliocasestudies <- NULL
+raw_data$S_Media <- NULL
+raw_data$G_Portfoliocasestudies <- NULL
+raw_data$Other_ESGfund <- NULL
+raw_data$Other_ESGdocument <- NULL
+raw_data$Other_Portfoliocasestudies <- NULL
+raw_data$Other_ESGMedia <- NULL
+raw_data$Other_ESGpolicy <- NULL
+raw_data$Other_ESGreport <- NULL
+raw_data$Other_ESGAwards  <- NULL
+raw_data$E_HasDocumentsorPages <- NULL
+raw_data$S_HasDEI <- NULL
+raw_data$S_10PctWomenBoardExec <- NULL
+raw_data$S_HasDocumentsorPages <- NULL
+raw_data$G_HasDocumentsorPages <- NULL
+raw_data$Other_HasESGHeadorCommittee <- NULL
 
 #### Save data ####
 write_csv(raw_data, "data/analysis_data/cleaned_data1.csv")
