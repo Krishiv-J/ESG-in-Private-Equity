@@ -31,6 +31,9 @@ raw_data$Total_EorSDocsOrMedia <- NULL
 raw_data$Total_EorSDocsOrMedia_2 <- NULL
 raw_data$VCGrowthCapital <- NULL
 raw_data$Firm_age <- NULL
+raw_data$Other_ALLFramework <- NULL
+raw_data$G_navigationalpage <- NULL
+raw_data$G_document <- NULL
 
 ## Removing Calculated Greenwashing Columns ##
 
@@ -88,8 +91,8 @@ raw_data$S_DEIcommittee <- NULL
 raw_data$S_ChiefDiversityOfficer <- NULL
 raw_data$S_10pctWomeninBoard <- NULL
 raw_data$S_10pctWomeninLeadership <- NULL
-raw_data$E_HasDocumentsorPages <- NULL
-raw_data$S_HasDocumentsorPages <- NULL
+raw_data$E_document <- NULL
+raw_data$S_document <- NULL
 raw_data$E_HasDocsOrMedia	<- NULL
 raw_data$E_HasDocsOrMedia_2	<- NULL
 raw_data$S_HasDocsOrMedia	<- NULL
