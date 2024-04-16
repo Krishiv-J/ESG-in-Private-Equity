@@ -14,7 +14,7 @@ library(arrow)
 raw_data <- read_csv("data/raw_data/raw_data.csv")
 employee_data <- read_csv("data/raw_data/employee_data.csv")
 
-### Remove Unneeded Columns ###
+#### Remove Unneeded Columns ####
 
 
 ## Removing "general" information ##
@@ -39,6 +39,21 @@ raw_data$Other_ESGcommittee <- NULL
 raw_data$Other_ESGmicrosite <- NULL
 raw_data$Other_ESGsectionvisible <- NULL
 raw_data$Other_SignatoryESGConvergence <- NULL
+raw_data$Log_Staffcount <- NULL
+raw_data$LogFundSize_Calvin <- NULL
+raw_data$LogFundSize_Preqin <- NULL
+raw_data$Public <- NULL
+raw_data$FundSize_Calvin <- NULL
+raw_data$Sum_wirr_all <- NULL
+raw_data$Diversified <- NULL
+raw_data$Healthcare <- NULL
+raw_data$Technology <- NULL
+raw_data$ConsumerGoods <- NULL
+raw_data$OtherIndustry <- NULL
+raw_data$MissingIRR <- NULL
+raw_data$BuyoutFund <- NULL
+raw_data$Sum_wtvpi <- NULL
+raw_data$Totalfundsraised10yearsmn <- NULL
 
 ## Removing Calculated Greenwashing Columns ##
 
@@ -69,23 +84,7 @@ raw_data$Other_AdoptAICGuidelines <- NULL
 raw_data$S_SignatoryILPADiversity <- NULL
 raw_data$S_SignatoryCEOAction <- NULL
 
-
-
-raw_data$Log_Staffcount <- NULL
-raw_data$LogFundSize_Calvin <- NULL
-raw_data$LogFundSize_Preqin <- NULL
-raw_data$Public <- NULL
-raw_data$FundSize_Calvin <- NULL
-raw_data$Sum_wirr_all <- NULL
-raw_data$Diversified <- NULL
-raw_data$Healthcare <- NULL
-raw_data$Technology <- NULL
-raw_data$ConsumerGoods <- NULL
-raw_data$OtherIndustry <- NULL
-raw_data$MissingIRR <- NULL
-raw_data$BuyoutFund <- NULL
-raw_data$Sum_wtvpi <- NULL
-raw_data$Totalfundsraised10yearsmn <- NULL
+## Removing Repetitive Columns ##
 
 raw_data$E_ALLSignatory <- NULL
 raw_data$S_ALLSignatory <- NULL
@@ -126,12 +125,27 @@ raw_data$Total_WeightedESGScore_6 <- NULL
 raw_data$Total_WeightedESGScore_7 <- NULL
 raw_data$Total_WeightedESGScore_8 <- NULL
 
-# Add New Employee #
+#### Add Column for New Employee ####
 raw_data$Staffcounttotal <- NULL
 raw_data$Staff <- employee_data$`No. of Employees`
 
-# Add Average Fund Size #
+#### Add Column for Average Fund Size ####
 raw_data$Average_Fund_Size <- (raw_data$FundSize_Preqin/raw_data$Totalnumberoffunds)
+
+#### Add Column for ESG Score ####
+
+raw_data$ESG_Score <- (raw_data$HasESGonWebsite + raw_data$E_Portfoliocasestudies +
+                         raw_data$E_Media + raw_data$S_Portfoliocasestudies +
+                         raw_data$S_Media + raw_data$G_Portfoliocasestudies +
+                         raw_data$Other_ESGfund + raw_data$Other_ESGdocument +
+                         raw_data$Other_Portfoliocasestudies + raw_data$Other_ESGMedia +
+                         raw_data$Other_ESGpolicy + raw_data$Other_ESGreport +
+                         raw_data$Other_ESGAwards + raw_data$E_HasDocumentsorPages +
+                         raw_data$S_HasDEI + raw_data$S_10PctWomenBoardExec +
+                         raw_data$S_HasDocumentsorPages + raw_data$G_HasDocumentsorPages +
+                         raw_data$Other_HasESGHeadorCommittee)
+
+
 
 #### Save data ####
 write_csv(raw_data, "data/analysis_data/cleaned_data1.csv")
