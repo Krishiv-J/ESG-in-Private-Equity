@@ -34,6 +34,11 @@ raw_data$Firm_age <- NULL
 raw_data$Other_ALLFramework <- NULL
 raw_data$G_navigationalpage <- NULL
 raw_data$G_document <- NULL
+raw_data$Other_ChiefESGofficer <- NULL
+raw_data$Other_ESGcommittee <- NULL
+raw_data$Other_ESGmicrosite <- NULL
+raw_data$Other_ESGsectionvisible <- NULL
+raw_data$Other_SignatoryESGConvergence <- NULL
 
 ## Removing Calculated Greenwashing Columns ##
 
@@ -97,7 +102,6 @@ raw_data$E_HasDocsOrMedia	<- NULL
 raw_data$E_HasDocsOrMedia_2	<- NULL
 raw_data$S_HasDocsOrMedia	<- NULL
 raw_data$S_HasDocsOrMedia_2 <- NULL
-
 
 ## Removing Weighted Scores ##
 
