@@ -127,7 +127,7 @@ raw_data$Total_WeightedESGScore_8 <- NULL
 
 #### Add Column for New Employee ####
 raw_data$Staffcounttotal <- NULL
-raw_data$Staff <- employee_data$`No. of Employees`
+raw_data$Staff_Count <- employee_data$`No. of Employees`
 
 #### Add Column for Average Fund Size ####
 raw_data$Average_Fund_Size <- (raw_data$FundSize_Preqin/raw_data$Totalnumberoffunds)
