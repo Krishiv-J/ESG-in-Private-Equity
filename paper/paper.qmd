@@ -26,6 +26,7 @@ library(arrow)
 library(here)
 library(gridExtra)
 library(gtsummary)
+library(modelsummary)
 
 analysis_data <- read_csv(here("data/analysis_data/cleaned_data1.csv"))
 ```
@@ -248,6 +249,7 @@ Negative binomial regression offers a robust approach to analyzing count data, e
 # Results
 
 
+
 ```{r}
 #| label: tbl-3
 #| echo: false
@@ -264,6 +266,8 @@ tbl_regression(esg_model)
 ```
 
 ```{r}
+
+modelsummary(esg_model)
 
 
 ```

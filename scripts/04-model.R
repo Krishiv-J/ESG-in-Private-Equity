@@ -8,21 +8,16 @@
 # Any other information needed? [...UPDATE THIS...]
 
 
-#### Workspace setup ####
+# Load required libraries
 library(tidyverse)
 library(rstanarm)
-library(modelsummary)
-library(dplyr)
-library(tidyr)
+library(broom.mixed)
 library(gtsummary)
-
-
 
 #### Read data ####
 analysis_data <- read_csv("data/analysis_data/cleaned_data1.csv")
 
 ### Model data ####
-
 model <- stan_glm(
   ESG_Score ~ Totalnumberoffunds + FundSize_Preqin + Sum_wirr_preqin + Staff_Count + Average_Fund_Size,
   data = analysis_data,
@@ -30,9 +25,20 @@ model <- stan_glm(
   seed = 555
 )
 
-modelsummary(model)
+# Extract coefficients using broom::tidy
+tidy_model <- broom.mixed::tidy(model)
 
-tbl_regression(esg_model)
+# Create summary table using gtsummary
+summary_table <- tidy_model %>%
+  select(term, estimate, std.error) %>%
+  tbl_summary(
+    by = NULL,
+    statistic = list(estimate ~ "{mean} ({sd})"),
+    digits = list(all_continuous() ~ 2)
+  )
+
+# Print summary table
+summary_table
 
 
 #### Save model ####
