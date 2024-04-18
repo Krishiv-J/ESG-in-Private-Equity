@@ -50,6 +50,7 @@ Understanding the ESG practices of PE firms is crucial for promoting transparenc
 
 This paper is structured as follows. In Section 2, the source of the data, the methodology of data collection and cleaning, and the changes made to the data set is detailed. Section 3 discusses the choice and construction of our logistic model to make predictions about private equity firms. Section 4 presents the model's results. Section 5 draws upon the relevance of these results to Europe. Section 6 talks about the implications, ethical considerations, and limitations of our work. 
 
+The estimand for this paper is the effect of various firm-specific factors (Total Number of Funds, Fund Size, IRR, Staff Count, and Average Fund Size) on a private equity firm's ESG scores. 
 
 # Data {#sec-data}
 
@@ -302,15 +303,15 @@ In summary, whilst some variables like 'Total Number of Funds' and 'IRR' show po
 
 # Discussion
 
-## First discussion point {#sec-first-point}
+## Findings and Comparison
 
+The results from the negative binomial regression model provide insights into the factors influencing ESG scores in private equity firms. The findings suggest that 'Total Number of Funds' and 'IRR' are positively associated with ESG scores, although with relatively modest coefficients and high standard errors. Conversely, 'Fund Size', 'Staff', and 'Average Fund Size' demonstrate negligible impact on ESG scores.
 
-## Second discussion point
+Comparing these results to PAPER, there are several similarities and differences. In the original paper, neither 'IRR (Preqin)' nor 'IRR (All)' showed significant influence on ESG scores. In contrast, this paper's results identify a positive relationship between IRR and ESG scores. This discrepancy suggests that firm performance, as measured by IRR, might indeed predict ESG activities. The original paper also considered the variables 'Log Fund Size' and 'Staff Count' as potential regressors, and found that neither variable had a statistically significant relation with a firm's ESG Score. This paper did not apply a log to the fund size, and had replaced the data for staff (instead of using Preqin's data, LinkedIn's data was used). However, despite the aforementioned changes to the data,this paper also found that neither of these two variables had a significant relation with ESG scores. 
 
-## Third discussion point
+## Weaknesses
 
-## Weaknesses and next steps
-
+## Future Research
 
 \newpage
 
