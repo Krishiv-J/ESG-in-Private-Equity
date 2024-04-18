@@ -24,24 +24,6 @@ model <- stan_glm(
   seed = 555
 )
 
-modelsummary(model)
-
-# Extract coefficients using broom::tidy
-tidy_model <- broom.mixed::tidy(model)
-
-# Create summary table using gtsummary
-summary_table <- tidy_model %>%
-  select(term, estimate, std.error) %>%
-  tbl_summary(
-    by = NULL,
-    statistic = list(estimate ~ "{mean} ({sd})"),
-    digits = list(all_continuous() ~ 2)
-  )
-
-# Print summary table
-summary_table
-
-
 #### Save model ####
 saveRDS(
   esg_model,
