@@ -132,7 +132,7 @@ raw_data$Staff_Count <- employee_data$`No. of Employees`
 #### Add Column for Average Fund Size ####
 raw_data$Average_Fund_Size <- (raw_data$FundSize_Preqin/raw_data$Totalnumberoffunds)
 
-#### Add Column for ESG Score ####
+#### Calculate and Add Column for ESG Score ####
 
 raw_data$ESG_Score <- (raw_data$HasESGonWebsite + raw_data$E_Portfoliocasestudies +
                          raw_data$E_Media + raw_data$S_Portfoliocasestudies +

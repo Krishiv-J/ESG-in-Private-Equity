@@ -19,6 +19,10 @@ bibliography: references.bib
 
 library(tidyverse)
 library(palmerpenguins)
+library(here) 
+library(knitr)
+library(janitor)
+library(arrow)
 ```
 
 
@@ -35,8 +39,91 @@ This paper is structured as follows. In Section 2, the source of the data, the m
 
 # Data {#sec-data}
 
+## Source and Collection
+
+The raw data set used for this paper is obtained from the “ESG in the Top 100 US Private Equity Firms” paper (CITE), which was published in July 2023. The data was collected for the year 2022. 
+
+The authors selected the top 100 U.S.-based private equity firms for the year 2022. This selection was guided by the rankings from Private Equity International, a renowned organisation that publishes an annual global ranking of PE firms. The rankings are based on fundraising amounts in millions of dollars over the preceding five years, providing a reliable measure of each firm's market presence and activity. The choice of U.S. firms was deliberate, as they wield significant global influence and impact. Furthermore, limiting the study to U.S. firms helped eliminate potential variations that may arise from country-specific factors, given that the top non-U.S. firms were spread across various countries with diverse regulatory environments. Whilst this subset represents only a fraction of the total number of private equity firms, it accounted for over 25% of the total committed capital and employed more than 26% of the industry's workforce in 2022. 
+
+To ensure the sample captured firms primarily dedicated to private equity, the authors excluded investment banks like Goldman Sachs or Blackrock, despite their presence in the Private Equity International rankings. These institutions were excluded due to their diversified operational structure, which includes private equity as a tertiary segment rather than a primary focus.
+
+The selection criteria also took into account the primary investment strategies of the firms. While private equity firms typically engage in strategies such as buyouts, growth equity, and venture capital, some may have alternative approaches like management buy-ins, impact investing, or infrastructure investing. To maintain consistency and focus, the authors excluded firms that did not prioritise private equity as their primary investment strategy.
+
+In cases where a firm was excluded or did not meet the predetermined criteria, the authors substituted it with the subsequent firm from the 2022 Private Equity International rankings. This approach ensured that the sample size reached the intended count of 100 while maintaining the integrity of the data. As such, the sample stops at the private equity firm
+ranking 116.
+
+For the data collection process, the authors hand-collected the data to ensure its accuracy. The authors primarily relied on content analysis of the firms' websites. This method has a long-standing history in analysing company-related information. The websites provided a rich source of information, including financial reports, dedicated ESG microsites, documents, informational videos, interviews, and management letters. This extensive review aimed to capture all firm-level ESG-related information.
+
+To ensure the data's reliability and validity, the authors adopted a coding system that aimed to distinguish between genuine involvement in ESG practices and mere lip service. While documents and presentations with substantial ESG-related content were included, boilerplate language lacking supporting material was excluded.
+
+The majority of data on the specific characteristics of the private equity firms, such as size, staff count, investment strategy, total number of funds, and more, were extracted from Preqin. 
+
+## Modifications made
+
+### Variables
+
+The original dataset had 117 columns (1 column for the name of the firm, and 116 for various data points for each of the 100 firms). In analysing the determinants of ESG activities, the authors considered a range of PE firm-level variables. The authors organised the ESG information from the firms' websites into distinct content categories to capture various aspects of their practices. Initially, the results were classified into four main groups: Environmental (E), Social (S), Governance (G), and an "Other" category, which encompasses ESG aspects that do not fit neatly into the environmental, social, or governance classifications. Each of these primary categories was further divided into two sub-categories. The first sub-category contributes to the respective E, S, G, or "Other" score, while the second focuses on ESG frameworks, signatories, certifications, or sponsorships. The authors also created a “weighted” ESG-Score. Finally, the authors also assessed the private equity firms' explicit commitments to ESG frameworks beyond the ESG score. This involved evaluating whether the firms align with specific ESG frameworks, participate in related initiatives, hold ESG certifications, and engage in ESG sponsorships. In doing so, the paper aimed to determine if the firm was engaging in greenwashing, which is the deceptive practice of exaggerating or falsely claiming environmentally friendly initiatives [@green]. Given the focus of this paper, any variable used for the analysis of the firm's greenwashing was excluded. 
+
+
+#### Staff Count
+
+It was observed that the count for the number of employees was significantly inaccurate. For instance, Sequoia Capital was reported having only 19 employees. Thus, to fix the dataset, data from the LinkedIn pages of each firm was used. For each company on LinkedIn, there is a section that includes the number of people that are currently employed by the firm. LinkedIn reported Sequoia as having 824 employees, a significant difference from the 19 employees previously reported. The implication of using this methodology is discussed further below. Energy & Minerals Group’s LinkedIn’s page could not be found, thus, the original number reported was used. 
+
+
+#### Internal Rate of Return
+
+The Internal Rate of Return (IRR) was gathered from the Preqin. Whilst Preqin provided comprehensive data for most of the utilised variables, there were some gaps that were filled in manually. Specifically, there were 22 missing observations for IRR.
+
+To address these gaps, the authors sourced the missing data from Bloomberg, bringing the total IRR observations to 96 out of the 100 firms in the sample. However, once again, it was observed that the data obtained from Bloomberg was significantly inaccurate. For instance, PSG’s IRR was taken from Bloomberg since Preqin did not have data. It was reported to be 78.8%. However, a presentation from PSG reported their 2022 gross IRR as 56%, and their net IRR as 44% [@PSG]. Thus, despite the lower number of observations, Preqin’s data was used given its higher accuracy.  
+
+#### Variables removed from regression
+
+Moreover, a number of variables that were used in the original paper as predictor variables in their regression were removed:
+
+- `Public`: A dummy variable indicating whether the private equity firm is publicly traded.
+- `IRR (All)`: The overall Internal Rate of Return (IRR) of the private equity firm, from either of Preqin and Bloomberg
+- `Buyout`: A dummy variable indicating whether the private equity firm specialises in buyout investments.
+- `VC or Growth Capital`: A dummy variable indicating whether the private equity firm is a Venture Capital firm or specialised in Growth Capital.
+- `Avg.Vintage`: The average vintage year of the funds within the private equity firm.
+- `EastCoast`: A dummy variable indicating whether the private equity firm is located on the East Coast.
+- `WestCoast`: A dummy variable indicating whether the private equity firm is located on the West Coast.
+- `OtherUSLocation`: A dummy variable indicating whether the private equity firm is in another US Location, other than the East Coast or West Coast.
+- `Total Number of Funds`: The total number of funds within the private equity firm.
+
+### Methodology
+
+The authors' methodology for calculating the ESG-Score involves aggregating scores from four distinct categories: Environmental (E-Score), Social (S-Score), Governance (G-Score), and Other-Score. For each score, various data points collected for related to each specific subcategory, such as environmental initiatives for the E-Score, social considerations for the S-Score, and governance practices for the G-Score, are averaged. The Other-Score captures miscellaneous ESG-related factors like award recognition and dedicated ESG funds. For each category, a score of 1 indicates optimal performance in that aspect of ESG, while a score of 0 suggests a lack of effort or data. The scores are then added to produce an overall ESG-Score that ranges from 0 to 4. A score of 0 signifies a complete absence of ESG practices, whereas a score of 4 represents exemplary ESG commitment. 
+
+In this paper, the approach to calculating the ESG-Score diverges from the original methodology by opting for a summing method rather than averaging across the categories. This decision was driven by the desire to give equal weight to each component, ensuring that a firm's commitment across different ESG aspects is considered equally important. By summing the scores, the methodology emphasises the cumulative presence and effort towards ESG across all categories. This approach rectifies the potential imbalance that could arise when averaging, where fewer factors in one category could have the same weight as a larger number in another, leading to a more balanced and comprehensive assessment of a firm's ESG practices. In total, 23 columns are added to calculate the ESG Score. A value of 0 indicates that the firm does not engage in any form of ESG, whilst a score of 23 indicates optimal ESG practices. APPENDIX is a list of every variable included in the calculation of the ESG Score. 
+
+Furthermore, in their methodology, the authors adopted a weighted approach for calculating the ESG score, termed the Weighted ESG-Score. This method aggregates the scores of each E, S, G, and “Other” factors, with the E-Score and Other-Score, both heavy in environmental factors, given twice the weight of the S-Score and G-Score. Their rationale for this weighting is rooted in the heightened interest in environmental issues compared to other aspects of ESG. However, in this study, the Weighted ESG-Score was omitted for several reasons. First, there's the potential for bias in weighting; assigning environmental factors double the weight could skew the scoring system. Without a universally agreed-upon weighting scheme, scores may become subjective, compromising interpretability and comparability. Second, by excluding the weighted approach, the study adopts a more holistic perspective on ESG, treating each factor equally. This ensures that no single ESG component is prioritised over the others.
+
+## Data Cleaning
+
+
+After converting the dataset from its original Stata file type to csv, a column for the Average Fund Size variable was added. This was calculated as the Fund Size divided by the Number of Funds. This was done as larger fund sizes might indicate more resources available for ESG initiatives, potentially correlating with a stronger ESG commitment. The data for the number of employees was also added to the table. All the unneeded columns, including the ones mentioned before, and other unneeded ones, such as the year the PE firm was established were removed. Furthermore, there were repetitive columns, columns with no description throughout the paper, and any columns that were used to calculate other columns that were removed. For instance, three individual columns indicating the presence of a DEI policy, a Chief Diversity Officer, and a DEI committee were removed during the data cleaning process. These columns became redundant as their information was already consolidated into a single DEI column. The DEI column effectively captures the combined presence of these components, making the individual columns unnecessary.
+
+Next, the ESG score was calculated using the methodology detailed above. After doing so, all the columns used in its calculation were also deleted since they were not needed anymore, leaving the final data set looking like FIGURE 10. 
+
+
+
 
 ```{r}
+#| label: fig-1
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: "Total Number of Funds vs ESG Score"
+#| fig-pos: H
+
+
+analysis_data <- read_csv("data/analysis_data/cleaned_data1.csv")
+
+ggplot(analysis_data, aes(x = Totalnumberoffunds, y = ESG_Score)) +
+  geom_point() +
+  labs(x = "Total Number of Funds", 
+       y = "ESG Score", 
+       title = "Total Number of Funds vs ESG Score")
 
 ```
 
