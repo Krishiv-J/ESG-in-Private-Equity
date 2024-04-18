@@ -20,7 +20,6 @@ bibliography: references.bib
 library(palmerpenguins)
 library(here) 
 library(arrow)
-library(here)
 library(gridExtra)
 library(gtsummary)
 
@@ -269,18 +268,24 @@ Negative binomial regression offers a robust approach to analyzing count data, e
 
 esg_model <- readRDS(file = here::here("models/esg_model.rds"))
 
+tidy_model <- broom.mixed::tidy(esg_model)
 
-tbl_regression(esg_model)
+tidy_model <- tidy_model %>%
+  mutate(term = case_when(
+    term == "(Intercept)"        ~ "Intercept",
+    term == "Totalnumberoffunds" ~ "Total Number of Funds",
+    term == "FundSize_Preqin"    ~ "Fund Size",
+    term == "Sum_wirr_preqin"    ~ "IRR",
+    term == "Staff_Count"        ~ "Staff",
+    term == "Average_Fund_Size"  ~ "Average Fund Size",
+    TRUE                         ~ term
+  ))
+
+kable(tidy_model, format = "markdown", 
+      col.names = c("Term", "Estimate", "Std. Error"),
+      digits = 3)
 
 ```
-
-```{r}
-
-modelsummary(esg_model)
-
-
-```
-
 
 # Discussion
 
