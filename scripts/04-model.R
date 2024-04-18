@@ -12,7 +12,6 @@
 library(tidyverse)
 library(rstanarm)
 library(broom.mixed)
-library(gtsummary)
 
 #### Read data ####
 analysis_data <- read_csv("data/analysis_data/cleaned_data1.csv")
@@ -24,6 +23,8 @@ model <- stan_glm(
   family = neg_binomial_2(link = "identity"),
   seed = 555
 )
+
+modelsummary(model)
 
 # Extract coefficients using broom::tidy
 tidy_model <- broom.mixed::tidy(model)
