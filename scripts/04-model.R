@@ -14,6 +14,8 @@ library(rstanarm)
 library(modelsummary)
 library(dplyr)
 library(tidyr)
+library(gtsummary)
+
 
 
 #### Read data ####
@@ -21,14 +23,17 @@ analysis_data <- read_csv("data/analysis_data/cleaned_data1.csv")
 
 ### Model data ####
 
-esg_model <- stan_glm(
+model <- stan_glm(
   ESG_Score ~ Totalnumberoffunds + FundSize_Preqin + Sum_wirr_preqin + Staff_Count + Average_Fund_Size,
   data = analysis_data,
   family = neg_binomial_2(link = "identity"),
   seed = 555
 )
 
-modelsummary(esg_model)
+modelsummary(model)
+
+tbl_regression(esg_model)
+
 
 #### Save model ####
 saveRDS(
