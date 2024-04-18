@@ -13,64 +13,27 @@ library(tidyverse)
 library(rstanarm)
 library(modelsummary)
 library(dplyr)
+library(tidyr)
 
 
 #### Read data ####
 analysis_data <- read_csv("data/analysis_data/cleaned_data1.csv")
 
-
-
-analysis_data1 <- analysis_data %>% 
-  filter(ESG_Score != 0)
-
-
-
 ### Model data ####
-first_model <-
-  stan_glm(
-    formula = flying_time ~ length + width,
-    data = analysis_data,
-    family = gaussian(),
-    prior = normal(location = 0, scale = 2.5, autoscale = TRUE),
-    prior_intercept = normal(location = 0, scale = 2.5, autoscale = TRUE),
-    prior_aux = exponential(rate = 1, autoscale = TRUE),
-    seed = 853
-  )
 
-esg_neg_binomial <- stan_glm(
+esg_model <- stan_glm(
   ESG_Score ~ Totalnumberoffunds + FundSize_Preqin + Sum_wirr_preqin + Staff_Count + Average_Fund_Size,
-  data = analysis_data1,
-  family = neg_binomial_2(link = "log"),
-  seed = 555
-)
-
-
-esg_neg_binomial5 <- stan_glm(
-  ESG_Score ~ Totalnumberoffunds + FundSize_Preqin + Sum_wirr_preqin + Staff_Count + Average_Fund_Size,
-  data = analysis_data1,
+  data = analysis_data,
   family = neg_binomial_2(link = "identity"),
   seed = 555
 )
 
-
-esg_neg_binomial1 <- stan_glm(
-  ESG_Score ~ Totalnumberoffunds,
-  data = analysis_data1,
-  family = neg_binomial_2(link = "identity"),
-  seed = 555
-)
-
-esg_neg_binomial2 <- stan_glm(
-  ESG_Score ~  Sum_wirr_preqin + Staff_Count + Average_Fund_Size,
-  data = analysis_data1,
-  family = neg_binomial_2(link = "log"),
-  seed = 555
-)
+modelsummary(esg_model)
 
 #### Save model ####
 saveRDS(
-  first_model,
-  file = "models/first_model.rds"
+  esg_model,
+  file = "models/esg_model.rds"
 )
 
 

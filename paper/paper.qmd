@@ -25,6 +25,7 @@ library(janitor)
 library(arrow)
 library(here)
 library(gridExtra)
+library(modelsummary)
 
 analysis_data <- read_csv(here("data/analysis_data/cleaned_data1.csv"))
 ```
@@ -103,7 +104,6 @@ In this paper, the approach to calculating the ESG-Score diverges from the origi
 Furthermore, in their methodology, the authors adopted a weighted approach for calculating the ESG score, termed the Weighted ESG-Score. This method aggregates the scores of each E, S, G, and “Other” factors, with the E-Score and Other-Score, both heavy in environmental factors, given twice the weight of the S-Score and G-Score. Their rationale for this weighting is rooted in the heightened interest in environmental issues compared to other aspects of ESG. However, in this study, the Weighted ESG-Score was omitted for several reasons. First, there's the potential for bias in weighting; assigning environmental factors double the weight could skew the scoring system. Without a universally agreed-upon weighting scheme, scores may become subjective, compromising interpretability and comparability. Second, by excluding the weighted approach, the study adopts a more holistic perspective on ESG, treating each factor equally. This ensures that no single ESG component is prioritised over the others.
 
 ## Data Cleaning
-
 
 After converting the dataset from its original Stata file type to csv, a column for the Average Fund Size variable was added. This was calculated as the Fund Size divided by the Number of Funds. This was done as larger fund sizes might indicate more resources available for ESG initiatives, potentially correlating with a stronger ESG commitment. The data for the number of employees was also added to the table. All the unneeded columns, including the ones mentioned before, and other unneeded ones, such as the year the PE firm was established were removed. Furthermore, there were repetitive columns, columns with no description throughout the paper, and any columns that were used to calculate other columns that were removed. For instance, three individual columns indicating the presence of a DEI policy, a Chief Diversity Officer, and a DEI committee were removed during the data cleaning process. These columns became redundant as their information was already consolidated into a single DEI column. The DEI column effectively captures the combined presence of these components, making the individual columns unnecessary.
 
@@ -230,14 +230,45 @@ ggplot(analysis_data, aes(x = Average_Fund_Size, y = ESG_Score)) +
 
 ## Model set-up
 
+\begin{align} 
+ESG_i|\pi_i &\sim \mbox{Negative Binomial}(r, \pi_i) \\
+logit(\pi_i) &= \beta_0 + \beta_1 \text{funds}_i + \beta_2  \text{fund\_size}_i + \beta_3 \text{IRR}_i +\beta_4 \text{staff}_i+\beta_5 \text{average\_fund\_size}_i \\
+\beta_0 &\sim \mbox{Normal}(0, 2.5) \\
+\beta_1 &\sim \mbox{Normal}(0, 2.5) \\
+\beta_2 &\sim \mbox{Normal}(0, 2.5) \\
+\beta_3 &\sim \mbox{Normal}(0, 2.5) \\
+\beta_4 &\sim \mbox{Normal}(0, 2.5) \\
+\beta_5 &\sim \mbox{Normal}(0, 2.5)
+\end{align}
 
-### Model justification
+## Model justification
+
+Negative binomial regression offers a robust approach to analyzing count data, especially when the assumption of equal mean and variance, inherent to Poisson regression, is violated. This regression model accommodates overdispersion, a common characteristic in count data where the variance exceeds the mean, providing a more flexible framework than the Poisson model. In this paper, the negative binomial regression is employed to examine the relationship between firm characteristics and their ESG scores. Given the potential for overdispersion in these counts, the negative binomial regression provides a suitable and robust approach to our analysis. 
 
 # Results
 
 
 ```{r}
+#| label: tbl-3
+#| echo: false
+#| warning: false
+#| message: false
+#| tbl-cap: "Results"
+#| tbl-pos: H
 
+#### Read data ####
+analysis_data <- read_csv("data/analysis_data/cleaned_data1.csv")
+
+### Model data ####
+
+esg_model <- stan_glm(
+  ESG_Score ~ Totalnumberoffunds + FundSize_Preqin + Sum_wirr_preqin + Staff_Count + Average_Fund_Size,
+  data = analysis_data,
+  family = neg_binomial_2(link = "identity"),
+  seed = 555
+)
+
+modelsummary(esg_model)
 
 ```
 
@@ -245,8 +276,6 @@ ggplot(analysis_data, aes(x = Average_Fund_Size, y = ESG_Score)) +
 
 
 ```
-
-
 
 
 # Discussion
