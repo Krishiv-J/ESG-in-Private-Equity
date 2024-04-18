@@ -23,6 +23,10 @@ library(here)
 library(knitr)
 library(janitor)
 library(arrow)
+library(here)
+library(gridExtra)
+
+analysis_data <- read_csv(here("data/analysis_data/cleaned_data1.csv"))
 ```
 
 
@@ -103,32 +107,121 @@ Furthermore, in their methodology, the authors adopted a weighted approach for c
 
 After converting the dataset from its original Stata file type to csv, a column for the Average Fund Size variable was added. This was calculated as the Fund Size divided by the Number of Funds. This was done as larger fund sizes might indicate more resources available for ESG initiatives, potentially correlating with a stronger ESG commitment. The data for the number of employees was also added to the table. All the unneeded columns, including the ones mentioned before, and other unneeded ones, such as the year the PE firm was established were removed. Furthermore, there were repetitive columns, columns with no description throughout the paper, and any columns that were used to calculate other columns that were removed. For instance, three individual columns indicating the presence of a DEI policy, a Chief Diversity Officer, and a DEI committee were removed during the data cleaning process. These columns became redundant as their information was already consolidated into a single DEI column. The DEI column effectively captures the combined presence of these components, making the individual columns unnecessary.
 
-Next, the ESG score was calculated using the methodology detailed above. After doing so, all the columns used in its calculation were also deleted since they were not needed anymore, leaving the final data set looking like FIGURE 10. 
-
-
-
+Next, the ESG score was calculated using the methodology detailed above. After doing so, all the columns used in its calculation were also deleted since they were not needed anymore. A snippet of the first 10 firms is seen in @tbl-1. Moreover, @fig-2, @fig-4, @fig-3 demonstrate the correlations between each firm characteristics, and their ESG Score. 
 
 ```{r}
-#| label: fig-1
+#| label: tbl-1
 #| echo: false
 #| warning: false
 #| message: false
-#| fig-cap: "Total Number of Funds vs ESG Score"
+#| tbl-cap: "First 10 Private Equity Firms in the cleaned dataset"
+#| tbl-pos: H
+
+analysis_data |>
+  mutate(
+    Sum_wirr_preqin = round(Sum_wirr_preqin, 2),
+    Average_Fund_Size = round(Average_Fund_Size, 2)
+  ) |>
+  head(10) |>
+  kable(
+    col.names = c("Firm", "No. of Funds", "Fund Size", "IRR", "Staff", "Average Fund Size", "ESG Score")
+  )
+
+```
+
+```{r}
+#| label: fig-2
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: "ESG Score by IRR and Staff Count"
 #| fig-pos: H
 
 
-analysis_data <- read_csv("data/analysis_data/cleaned_data1.csv")
-
-ggplot(analysis_data, aes(x = Totalnumberoffunds, y = ESG_Score)) +
+irr <- ggplot(analysis_data, aes(x = Sum_wirr_preqin, y = ESG_Score)) +
   geom_point() +
-  labs(x = "Total Number of Funds", 
-       y = "ESG Score", 
-       title = "Total Number of Funds vs ESG Score")
+  labs(title = "Internal Rate of Return vs ESG Score",
+       x = "Internal Rate of Return",
+       y = "ESG Score") +
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5, size = 10),
+                axis.title.x = element_text(size = 9),
+                axis.title.y = element_text(size = 9),
+        axis.text.y = element_text(size = 7.5))
 
+staff <- ggplot(analysis_data, aes(x = Staff_Count, y = ESG_Score)) +
+  geom_point() +
+  labs(title = "Number of Employees vs ESG Score",
+       x = "Number of Employees",
+       y = "ESG Score") +
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5, size = 10),
+                axis.title.x = element_text(size = 9),
+                axis.title.y = element_text(size = 9),
+        axis.text.y = element_text(size = 7.5))
+
+grid.arrange(staff, irr, 
+               ncol = 2
+)
 ```
 
 
 ```{r}
+#| label: fig-4
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: "ESG Score by IRR and Staff Count"
+#| fig-pos: H
+
+
+number_of_funds <- ggplot(analysis_data, aes(x = Totalnumberoffunds, y = ESG_Score)) +
+  geom_point() +
+  labs(title = "Total Number of Funds vs ESG Score",
+       x = "Total Number of Funds",
+       y = "ESG Score") +
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5, size = 10),
+                axis.title.x = element_text(size = 9),
+                axis.title.y = element_text(size = 9),
+        axis.text.y = element_text(size = 7.5))
+
+size <- ggplot(analysis_data, aes(x = FundSize_Preqin, y = ESG_Score)) +
+  geom_point() +
+  labs(title = "Fund Size vs ESG Score",
+       x = "Fund Size",
+       y = "ESG Score") +
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5, size = 10),
+                axis.title.x = element_text(size = 9),
+                axis.title.y = element_text(size = 9),
+        axis.text.y = element_text(size = 7.5))
+
+grid.arrange(number_of_funds, size, 
+               ncol = 2
+)
+```
+
+
+```{r}
+#| label: fig-3
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-cap: "ESG Score by Average Fund Size"
+#| fig-pos: H
+
+ggplot(analysis_data, aes(x = Average_Fund_Size, y = ESG_Score)) +
+  geom_point() +
+  labs(title = "Average Fund Size vs ESG Score",
+       x = "Average Fund Size",
+       y = "ESG Score") +
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5, size = 10),
+                axis.title.x = element_text(size = 9),
+                axis.title.y = element_text(size = 9),
+        axis.text.y = element_text(size = 7.5)) 
+    plot.margin = unit(c(0.1, 0.1, 0.1, 0.1), "cm")
 
 
 ```
