@@ -17,16 +17,25 @@ bibliography: references.bib
 #| warning: false
 #| message: false
 
-library(tidyverse)
 library(palmerpenguins)
 library(here) 
-library(knitr)
-library(janitor)
 library(arrow)
 library(here)
 library(gridExtra)
 library(gtsummary)
+
+library(boot)
+library(broom.mixed)
+library(collapse)
+library(dataverse)
+library(gutenbergr)
+library(janitor)
+library(knitr)
+library(marginaleffects)
 library(modelsummary)
+library(rstanarm)
+library(tidybayes)
+library(tidyverse)
 
 analysis_data <- read_csv(here("data/analysis_data/cleaned_data1.csv"))
 ```
