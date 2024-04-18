@@ -241,7 +241,7 @@ ggplot(analysis_data, aes(x = Average_Fund_Size, y = ESG_Score)) +
 
 \begin{align} 
 ESG_i|\pi_i &\sim \mbox{Negative Binomial}(r, \pi_i) \\
-logit(\pi_i) &= \beta_0 + \beta_1 \text{funds}_i + \beta_2  \text{fund\_size}_i + \beta_3 \text{IRR}_i +\beta_4 \text{staff}_i+\beta_5 \text{average\_fund\_size}_i \\
+(\pi_i) &= \beta_0 + \beta_1 \text{funds}_i + \beta_2  \text{fund\_size}_i + \beta_3 \text{IRR}_i +\beta_4 \text{staff}_i+\beta_5 \text{avg\_fund\_size}_i \\
 \beta_0 &\sim \mbox{Normal}(0, 2.5) \\
 \beta_1 &\sim \mbox{Normal}(0, 2.5) \\
 \beta_2 &\sim \mbox{Normal}(0, 2.5) \\
@@ -256,14 +256,12 @@ Negative binomial regression offers a robust approach to analyzing count data, e
 
 # Results
 
-
-
 ```{r}
 #| label: tbl-3
 #| echo: false
 #| warning: false
 #| message: false
-#| tbl-cap: "Results"
+#| tbl-cap: "Model Summary of the firm's ESG Score by various firm characteristics"
 #| tbl-pos: H
 
 esg_model <- readRDS(file = here::here("models/esg_model.rds"))
@@ -286,6 +284,21 @@ kable(tidy_model, format = "markdown",
       digits = 3)
 
 ```
+
+
+@tbl-3 presents the results of the negative binomial regression model examining the relationship between various firm characteristics and their ESG scores. The intercept of 0.692 serves as the baseline ESG score when all predictor variables are set to zero, though its practical interpretation is limited.
+
+The coefficient for 'Total Number of Funds' is estimated at 0.0119 with a standard error of 0.0385. This suggests that for each additional fund a firm manages, there is an expected increase of 0.0119 in its ESG score, holding other variables constant. With a relatively high standard error compared to the coefficient, this suggests that the relationship between the number of funds and ESG score is uncertain. The low coefficient value indicates that for each additional fund, the expected increase in ESG score is quite small, and given the standard error, this effect may not be statistically significant.
+
+'Fund Size' has an estimated coefficient of 0.0000350 with a standard error of 0.0000427. This relatively low coefficient suggests a negligible impact of fund size on ESG scores. The standard error is also relatively high, indicating uncertainty around this estimate.
+
+'IRR' has an estimated coefficient of 0.116 with a standard error of 0.0830. This suggests that a 1 unit increase in IRR is associated with an expected increase of 0.116 in the ESG score. Whilst the coefficient suggests a positive relationship between IRR and ESG scores, the high standard error indicates a considerable amount of uncertainty around this estimate. Given the magnitude of the standard error, the relationship between IRR and ESG scores may not be robust.
+
+For 'Staff', the estimated coefficient is 0.000914 with a standard error of 0.00109. The low coefficient suggests a minimal impact of staff count on ESG scores. Additionally, the standard error is relatively high compared to the coefficient, implying uncertainty in this relationship.
+
+Lastly, 'Average Fund Size' has an estimated coefficient of 0.0000386 with a standard error of 0.000529. Similar to the 'Fund Size', the low coefficient and high standard error suggest that the impact of average fund size on ESG scores is negligible and uncertain.
+
+In summary, whilst some variables like 'Total Number of Funds' and 'IRR' show positive associations with ESG scores, the low coefficient values coupled with high standard errors suggest these relationships are weak and potentially not statistically significant. On the other hand, 'Fund Size', 'Staff', and 'Average Fund Size' exhibit negligible. effects on the firm's ESG score.
 
 # Discussion
 
