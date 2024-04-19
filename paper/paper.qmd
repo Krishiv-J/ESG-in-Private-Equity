@@ -1,5 +1,5 @@
 ---
-title: "An Analysis of Top Private Equity Firms in the United States' Characteristics That Determine ESG Practices."
+title: "An Analysis of The Characteristics of the Top Private Equity Firms in the United States That Determine ESG Practices."
 author: 
   - Krishiv Jain
 thanks: "Code and data are available at: https://github.com/Krishiv-J/ESG-in-Private-Equity"
@@ -17,12 +17,10 @@ bibliography: references.bib
 #| warning: false
 #| message: false
 
-library(palmerpenguins)
 library(here) 
 library(arrow)
 library(gridExtra)
 library(gtsummary)
-
 library(boot)
 library(broom.mixed)
 library(collapse)
@@ -56,7 +54,9 @@ The estimand for this paper is the effect of various firm-specific factors (Tota
 
 ## Source, Collection, and Measurement
 
-The raw data set used for this paper is obtained from the “ESG in the Top 100 US Private Equity Firms” paper (CITE), which was published in July 2023. The data was collected for the year 2022. This dataset was created by the authors to capture the complex landscape of ESG commitments within private equity firms. Additionally, data was collected from LinkedIn to replace the staff data collected in the original dataset. This is further detailed below. The dataset combines both primary and secondary sources to gather firm-specific variables. The final dataset's sources include Preqin and LinkedIn, with additional insights derived from an analysis of each firm's individual website to assess ESG commitments.
+All data analysis was done through R [@citeR] with the help of the following packages: `tidyverse` [@citetidyverse], `here` [@citehere], `ggplot2` [@citeggplot2], `knitr` [@citeknitr], `rstanarm` [@rstanarm], `dplyr` [@citedplyr], `gridExtra` [@gridExtra], and `janitor` [@citejanitor].
+
+The raw data set used for this paper is obtained from the “ESG in the Top 100 US Private Equity Firms” paper [@paper], which was published in July 2023. The data was collected for the year 2022. This dataset was created by the authors to capture the complex landscape of ESG commitments within private equity firms. Additionally, data was collected from LinkedIn to replace the staff data collected in the original dataset. This is further detailed below. The dataset combines both primary and secondary sources to gather firm-specific variables. The final dataset's sources include Preqin and LinkedIn, with additional insights derived from an analysis of each firm's individual website to assess ESG commitments.
 
 The authors selected the top 100 U.S.-based private equity firms for the year 2022. This selection was guided by the rankings from Private Equity International, a renowned organisation that publishes an annual global ranking of PE firms. The rankings are based on fundraising amounts in millions of dollars over the preceding five years, providing a reliable measure of each firm's market presence and activity. The choice of U.S. firms was deliberate, as they wield significant global influence and impact. Furthermore, limiting the study to U.S. firms helped eliminate potential variations that may arise from country-specific factors, given that the top non-U.S. firms were spread across various countries with diverse regulatory environments. Whilst this subset represents only a fraction of the total number of private equity firms, it accounted for over 25% of the total committed capital and employed more than 26% of the industry's workforce in 2022. 
 
