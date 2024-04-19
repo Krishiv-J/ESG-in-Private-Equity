@@ -19,4 +19,4 @@ The repo is structured as:
 
 ## Statement on LLM usage
 
-Aspects of the code were written with the help of Chat GPT. The entire chat history is available in inputs/llms/usage.txt.
+No auto-complete tools such as co-pilot were used in the course of this project. Aspects of the code were written with the help of Chat GPT. The entire chat history is available in inputs/llms/usage.txt.
