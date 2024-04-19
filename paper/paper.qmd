@@ -40,13 +40,13 @@ analysis_data <- read_csv(here("data/analysis_data/cleaned_data1.csv"))
 
 # Introduction
 
-The corporate landscape is rapidly evolving, with a notable shift towards greater responsibility and transparency, spurred by the rise of Environmental, Social, and Governance (ESG) considerations. While ESG has gained traction in publicly traded companies, there is a significant gap in understanding the ESG practices of private equity (PE) firms, despite their immense global impact. This gap is particularly surprising given the influential role PE firms play in the economy and their potential impact on ESG. This paper aims to address this gap by investigating the determinants and practices of ESG within PE firms.
+The corporate landscape is rapidly evolving, with a notable shift towards greater responsibility and transparency, spurred by the rise of Environmental, Social, and Governance (ESG) considerations. Whilst ESG has gained traction in publicly traded companies, there is a significant gap in understanding the ESG practices of private equity (PE) firms, despite their immense global impact. This gap is particularly surprising given the influential role PE firms play in the economy and their potential impact on ESG. This paper aims to address this gap by investigating the determinants and practices of ESG within PE firms.
 
-This paper aims to reproduce the Top 100 US Private Equity Firms paper. That paper focuses on the top 100 PE firms based in the United States, conducting a thorough analysis of their ESG practices through content analysis of their websites. The findings reveal a notable lack of comprehensive ESG disclosures among PE firms, with only a minority providing substantial information on their environmental, social, and governance initiatives. This paper aims to improve upon their work by firstly amending the data collected for certain variables, such as number of employees. Next, this paper calculates next metrics, such as average fund size. Lastly, the paper focuses on different predictor variable. The reasons for each improvement is detailed in the paper.  
+This paper aims to reproduce the ESG in Top 100 US Private Equity Firms paper, and uses the dataset that were constructed by its authors [@paper]. That paper focuses on the top 100 PE firms based in the United States, conducting a thorough analysis of their ESG practices through content analysis of their websites. This paper aims to build upon their work by firstly amending the data collected for certain variables, such as number of employees. Secondly, this paper calculates new metrics, such as average fund size. Thirdly, a new methodology is used to calculate a firm's ESG score. Lastly, the paper focuses on different predictor variables. The reasons for each modification is detailed in the paper.  
 
 Understanding the ESG practices of PE firms is crucial for promoting transparency, accountability, and sustainable business practices in the global economy. By uncovering the current state of ESG engagement within PE firms and identifying factors that influence these practices, this study contributes to the broader discourse on corporate responsibility and fills a significant gap in the literature. 
 
-This paper is structured as follows. In Section 2, the source of the data, the methodology of data collection and cleaning, and the changes made to the data set is detailed. Section 3 discusses the choice and construction of our logistic model to make predictions about private equity firms. Section 4 presents the model's results. Section 5 draws upon the relevance of these results to Europe. Section 6 talks about the implications, ethical considerations, and limitations of our work. 
+This paper is structured as follows. In @sec-data, the source of the data, the methodology of data collection and cleaning, and the changes made to the data set is detailed. @sec-model discusses the choice and construction of our negative model. @sec-results presents the model's results. @sec-discussion further discusses the results, comparing it to the original paper, and discusses the limitations of the paper 
 
 The estimand for this paper is the effect of various firm-specific factors (Total Number of Funds, Fund Size, IRR, Staff Count, and Average Fund Size) on a private equity firm's ESG scores. 
 
@@ -244,7 +244,7 @@ ggplot(analysis_data, aes(x = Average_Fund_Size, y = ESG_Score)) +
 
 ```
 
-# Model
+# Model {#sec-model}
 
 ## Model set-up
 
@@ -263,7 +263,7 @@ ESG_i|\pi_i &\sim \mbox{Negative Binomial}(r, \pi_i) \\
 
 Negative binomial regression offers a robust approach to analyzing count data, especially when the assumption of equal mean and variance, inherent to Poisson regression, is violated. This regression model accommodates overdispersion, a common characteristic in count data where the variance exceeds the mean, providing a more flexible framework than the Poisson model. In this paper, the negative binomial regression is employed to examine the relationship between firm characteristics and their ESG scores. Given the potential for overdispersion in these counts, the negative binomial regression provides a suitable and robust approach to our analysis. 
 
-# Results
+# Results {#sec-results}
 
 ```{r}
 #| label: tbl-3
@@ -309,7 +309,7 @@ Lastly, 'Average Fund Size' has an estimated coefficient of 0.0000386 with a sta
 
 In summary, whilst some variables like 'Total Number of Funds' and 'IRR' show positive associations with ESG scores, the low coefficient values coupled with high standard errors suggest these relationships are weak and potentially not statistically significant. On the other hand, 'Fund Size', 'Staff', and 'Average Fund Size' exhibit negligible. effects on the firm's ESG score.
 
-# Discussion
+# Discussion {#sec-discussion}
 
 ## Findings and Comparison
 
