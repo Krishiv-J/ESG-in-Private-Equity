@@ -4,7 +4,7 @@
 # Date: 31 March 2024
 # Contact: krishiv.jain@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: None
+# Pre-requisites: CSV data file from the raw_data folder
 
 #### Workspace setup ####
 library(tidyverse)
@@ -135,15 +135,16 @@ raw_data$Average_Fund_Size <- (raw_data$FundSize_Preqin/raw_data$Totalnumberoffu
 #### Calculate and Add Column for ESG Score ####
 
 raw_data$ESG_Score <- (raw_data$HasESGonWebsite + raw_data$E_Portfoliocasestudies +
-                         raw_data$E_Media + raw_data$S_Portfoliocasestudies +
-                         raw_data$S_Media + raw_data$G_Portfoliocasestudies +
+                         raw_data$E_Media + raw_data$E_HasDocumentsorPages +
+                         raw_data$S_Portfoliocasestudies + raw_data$S_Media + 
+                         raw_data$S_HasDocumentsorPages + raw_data$S_HasDEI + 
+                         raw_data$S_10PctWomenBoardExec + 
+                         raw_data$G_Portfoliocasestudies + raw_data$G_HasDocumentsorPages +
                          raw_data$Other_ESGfund + raw_data$Other_ESGdocument +
                          raw_data$Other_Portfoliocasestudies + raw_data$Other_ESGMedia +
                          raw_data$Other_ESGpolicy + raw_data$Other_ESGreport +
-                         raw_data$Other_ESGAwards + raw_data$E_HasDocumentsorPages +
-                         raw_data$S_HasDEI + raw_data$S_10PctWomenBoardExec +
-                         raw_data$S_HasDocumentsorPages + raw_data$G_HasDocumentsorPages +
-                         raw_data$Other_HasESGHeadorCommittee)
+                         raw_data$Other_ESGAwards + raw_data$Other_HasESGHeadorCommittee)
+
 
 #### Remove Columns used in Calculation ####
 raw_data$HasESGonWebsite <- NULL

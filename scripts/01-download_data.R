@@ -1,5 +1,5 @@
 #### Preamble ####
-# Purpose: Downloads the required raw data to use in data cleaning
+# Purpose: Downloads the required raw data and saves as a csv
 # Author: Krishiv Jain
 # Date: 31 March 2024
 # Contact: krishiv.jain@mail.utoronto.ca

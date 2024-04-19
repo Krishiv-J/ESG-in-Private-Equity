@@ -54,9 +54,9 @@ The estimand for this paper is the effect of various firm-specific factors (Tota
 
 # Data {#sec-data}
 
-## Source and Collection
+## Source, Collection, and Measurement
 
-The raw data set used for this paper is obtained from the “ESG in the Top 100 US Private Equity Firms” paper (CITE), which was published in July 2023. The data was collected for the year 2022. 
+The raw data set used for this paper is obtained from the “ESG in the Top 100 US Private Equity Firms” paper (CITE), which was published in July 2023. The data was collected for the year 2022. This dataset was created by the authors to capture the complex landscape of ESG commitments within private equity firms. Additionally, data was collected from LinkedIn to replace the staff data collected in the original dataset. This is further detailed below. The dataset combines both primary and secondary sources to gather firm-specific variables. The final dataset's sources include Preqin and LinkedIn, with additional insights derived from an analysis of each firm's individual website to assess ESG commitments.
 
 The authors selected the top 100 U.S.-based private equity firms for the year 2022. This selection was guided by the rankings from Private Equity International, a renowned organisation that publishes an annual global ranking of PE firms. The rankings are based on fundraising amounts in millions of dollars over the preceding five years, providing a reliable measure of each firm's market presence and activity. The choice of U.S. firms was deliberate, as they wield significant global influence and impact. Furthermore, limiting the study to U.S. firms helped eliminate potential variations that may arise from country-specific factors, given that the top non-U.S. firms were spread across various countries with diverse regulatory environments. Whilst this subset represents only a fraction of the total number of private equity firms, it accounted for over 25% of the total committed capital and employed more than 26% of the industry's workforce in 2022. 
 
@@ -109,15 +109,23 @@ Moreover, a number of variables that were used in the original paper as predicto
 
 The authors' methodology for calculating the ESG-Score involves aggregating scores from four distinct categories: Environmental (E-Score), Social (S-Score), Governance (G-Score), and Other-Score. For each score, various data points collected for related to each specific subcategory, such as environmental initiatives for the E-Score, social considerations for the S-Score, and governance practices for the G-Score, are averaged. The Other-Score captures miscellaneous ESG-related factors like award recognition and dedicated ESG funds. For each category, a score of 1 indicates optimal performance in that aspect of ESG, while a score of 0 suggests a lack of effort or data. The scores are then added to produce an overall ESG-Score that ranges from 0 to 4. A score of 0 signifies a complete absence of ESG practices, whereas a score of 4 represents exemplary ESG commitment. 
 
-In this paper, the approach to calculating the ESG-Score diverges from the original methodology by opting for a summing method rather than averaging across the categories. This decision was driven by the desire to give equal weight to each component, ensuring that a firm's commitment across different ESG aspects is considered equally important. By summing the scores, the methodology emphasises the cumulative presence and effort towards ESG across all categories. This approach rectifies the potential imbalance that could arise when averaging, where fewer factors in one category could have the same weight as a larger number in another, leading to a more balanced and comprehensive assessment of a firm's ESG practices. In total, 23 columns are added to calculate the ESG Score. A value of 0 indicates that the firm does not engage in any form of ESG, whilst a score of 23 indicates optimal ESG practices. APPENDIX is a list of every variable included in the calculation of the ESG Score. 
+In this paper, the approach to calculating the ESG-Score diverges from the original methodology by opting for a summing method rather than averaging across the categories. This decision was driven by the desire to give equal weight to each component, ensuring that a firm's commitment across different ESG aspects is considered equally important. By summing the scores, the methodology emphasises the cumulative presence and effort towards ESG across all categories. This approach rectifies the potential imbalance that could arise when averaging, where fewer factors in one category could have the same weight as a larger number in another, leading to a more balanced and comprehensive assessment of a firm's ESG practices. In total, 19 columns are added to calculate the ESG Score. A value of 0 indicates that the firm does not engage in any form of ESG, whilst a score of 19 indicates optimal ESG practices. @sec-variables is a list of every variable that was used in the calculation of the ESG Score. 
 
 Furthermore, in their methodology, the authors adopted a weighted approach for calculating the ESG score, termed the Weighted ESG-Score. This method aggregates the scores of each E, S, G, and “Other” factors, with the E-Score and Other-Score, both heavy in environmental factors, given twice the weight of the S-Score and G-Score. Their rationale for this weighting is rooted in the heightened interest in environmental issues compared to other aspects of ESG. However, in this study, the Weighted ESG-Score was omitted for several reasons. First, there's the potential for bias in weighting; assigning environmental factors double the weight could skew the scoring system. Without a universally agreed-upon weighting scheme, scores may become subjective, compromising interpretability and comparability. Second, by excluding the weighted approach, the study adopts a more holistic perspective on ESG, treating each factor equally. This ensures that no single ESG component is prioritised over the others.
 
 ## Data Cleaning
 
-After converting the dataset from its original Stata file type to csv, a column for the Average Fund Size variable was added. This was calculated as the Fund Size divided by the Number of Funds. This was done as larger fund sizes might indicate more resources available for ESG initiatives, potentially correlating with a stronger ESG commitment. The data for the number of employees was also added to the table. All the unneeded columns, including the ones mentioned before, and other unneeded ones, such as the year the PE firm was established were removed. Furthermore, there were repetitive columns, columns with no description throughout the paper, and any columns that were used to calculate other columns that were removed. For instance, three individual columns indicating the presence of a DEI policy, a Chief Diversity Officer, and a DEI committee were removed during the data cleaning process. These columns became redundant as their information was already consolidated into a single DEI column. The DEI column effectively captures the combined presence of these components, making the individual columns unnecessary.
+After converting the dataset from its original Stata file type to csv, a column for the Average Fund Size variable was added. This was calculated as the Fund Size divided by the Number of Funds. This was done as larger fund sizes might indicate more resources available for ESG initiatives, potentially correlating with a stronger ESG commitment. The data for the number of employees was also added to the table. All the unneeded columns, including the ones mentioned before, and other unneeded ones, such as the year the PE firm was established were removed. Furthermore, there were repetitive columns, columns with no description throughout the paper, and any columns that were used to calculate other columns that were removed. For instance, three individual columns indicating the presence of a DEI policy, a Chief Diversity Officer, and a DEI committee were removed during the data cleaning process. These columns became redundant as their information was already consolidated into a single DEI column. The DEI column effectively captures the combined presence of these components, making the individual columns unnecessary. Next, the ESG score was calculated using the methodology detailed above. After doing so, all the columns used in its calculation were also deleted since they were not needed anymore. 
 
-Next, the ESG score was calculated using the methodology detailed above. After doing so, all the columns used in its calculation were also deleted since they were not needed anymore. A snippet of the first 10 firms is seen in @tbl-1. Moreover, @fig-2, @fig-4, @fig-3 demonstrate the correlations between each firm characteristics, and their ESG Score. 
+For our regression, the following variables are included:
+
+- `Total Number of Funds`: The total number of funds within the private equity firm.
+- `Fund Size`: The accumulated capital commitments across all of the private equity firm's individual funds, measured in millions of USD.
+- `IRR`: The overall Internal Rate of Return (IRR) of the private equity firm, which is a percent ranging from 0 to 100. 
+- `Staff`: The number of employees working for the private equity firm. 
+- `Average Fund Size`: The average size the funds within the private equity firm, measured in millions of USD. 
+
+A snippet of the first 10 firms is seen in @tbl-1. Moreover, @fig-2, @fig-4, @fig-3 demonstrate the correlations between each firm characteristic, and their ESG Score. 
 
 ```{r}
 #| label: tbl-1
@@ -144,7 +152,7 @@ analysis_data |>
 #| echo: false
 #| warning: false
 #| message: false
-#| fig-cap: "ESG Score by IRR and Staff Count"
+#| fig-cap: "ESG Score by Staff Count and IRR"
 #| fig-pos: H
 
 
@@ -181,7 +189,7 @@ grid.arrange(staff, irr,
 #| echo: false
 #| warning: false
 #| message: false
-#| fig-cap: "ESG Score by IRR and Staff Count"
+#| fig-cap: "ESG Score by Number of Funds and Fund Size"
 #| fig-pos: H
 
 
@@ -317,8 +325,40 @@ Comparing these results to PAPER, there are several similarities and differences
 
 \appendix
 
-# Appendix {-}
+# Appendix 
 
+## Variables used to calculate ESG {#sec-variables}
+
+Each variable below is a binary variable, meaning a 1 indicates that firm possess it, and a 0 means it does that. Each variable was added to determine a firm's ESG Score:
+
+- `HasESGonWebsite`: A dummy variable indicating whether the private equity firm has a ESG section on its website.
+- `E_Portfoliocasestudies`: A dummy variable indicating whether the private equity firm has portfolio case studies related to environmental factors.
+- `E_Media`: A dummy variable indicating whether the private equity firm’s website has media related to environmental factors.
+- `E_HasDocumentsorPages`: A dummy variable indicating whether the private equity firm has various website documents or pages related to environmental factors.
+- `S_Portfoliocasestudies`: A dummy variable indicating whether the private equity firm has portfolio case studies specifically related to social factors. 
+- `S_Media`: A dummy variable indicating whether the private equity firm has media content related to social factors.
+- `S_HasDocumentsorPages`: A dummy variable indicating whether the private equity firm has documents or dedicated pages on its website
+related to social factors.
+- `S_HasDEI`: A dummy variable indicating whether the private equity firm has a Diversity, Equity, and Inclusion (DEI) policy or
+initiatives in place. 
+- `S_10PctWomenBoardExec`: A dummy variable indicating whether the private equity firm has at least 10% women representation in its board of
+directors or executive positions. 
+- `G_Portfoliocasestudies`: A dummy variable indicating whether the private equity firm has portfolio case studies specifically related to
+governance factors.
+- `G_HasDocumentsorPages`: A dummy variable indicating whether the private equity firm has documents or dedicated pages on its website
+related to governance factors. 
+- `Other_ESGfund`: A dummy variable indicating whether the private equity firm has a dedicated fund specifically focused on ESG
+investments.
+- `Other_ESGdocument`: A dummy variable indicating whether the private equity firm has documents on its website related to ESG components that do not fit in the other 3 categories.
+- `Other_Portfoliocasestudies`: A dummy variable indicating whether the private equity firm has portfolio case studies that are related to ESG, but do not fall into the other 3 categories. 
+- `Other_ESGMedia`: A dummy variable indicating whether the private equity firm has media content related to ESG, but does not fall into the other 3 categories. 
+- `Other_ESGpolicy`: A dummy variable indicating whether the private equity firm has an official ESG policy outlining its commitment
+and approach to ESG factors. 
+- `Other_ESGreport`: A dummy variable indicating whether the private equity firm publishes regular reports specifically addressing its
+ESG performance and initiatives.
+- `Other_ESGAwards`: A dummy variable indicating whether the private equity firm has received any awards or recognition for its ESG
+practices. 
+- `Other_HasESGHeadorCommittee`: A dummy variable indicating whether the private equity firm has an appointed individual or committee responsible for overseeing ESG matters within the organisation.
 
 # Additional data details
 

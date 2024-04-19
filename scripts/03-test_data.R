@@ -4,7 +4,7 @@
 # Date: 18 April 2024
 # Contact: krishiv.jain@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: Downloaded the cleaned data file from the cleaned_data folder to run these tests
+# Pre-requisites: Downloaded the cleaned data file from the analysis_data folder to run these tests
 
 
 #### Workspace setup ####
