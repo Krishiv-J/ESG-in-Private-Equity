@@ -1,12 +1,12 @@
 ---
-title: "Top Private Equity Firms with Larger Average Fund Sizes and Lower Internal Rate of Returns (IRRs) in the United States Give ESG a Higher Importance"
-subtitle: "A reproduction using data from the United States and a case study from Europe" 
+title: "An Analysis of Top Private Equity Firms in the United States' Characteristics That Determine ESG Practices."
 author: 
   - Krishiv Jain
 thanks: "Code and data are available at: https://github.com/Krishiv-J/ESG-in-Private-Equity"
 date: today
 date-format: long
-abstract: "Concerns have been raised that private equity firms in the United States, who make significant contributions towards both the economy and society, do not give enough importance towards ESG. This paper aims to improve upon the work done and data collected in the ESG in the Top 100 US Private Equity Firms paper by fixing certain data inaccuracies, and considering different variables of interest. The analysis is extended to a case study in Europe. We find that in both regions, the average fund size and their IRR can be used to make reasonable predictions about their focus on ESG, whereas the number of employees that have is irrelevant."
+abstract: "This paper aims to improve upon the work done and data collected in the ESG in the Top 100 US Private Equity Firms paper, where they analysed different determinants of private equity firm's ESG practices. This is done by fixing certain data inaccuracies, using a different methology to calculate a firm's ESG scores, and considering different variables of interest. The findings reveal that internal rate of return (IRR) and the total number of funds have an impact on ESG score, whereas the number of employees, the fund's size, and the average size of each fund have negligible impact. This research contributes to the understanding the ESG practices of the top private equity firms in the United States."
+
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -317,9 +317,13 @@ The results from the negative binomial regression model provide insights into th
 
 Comparing these results to PAPER, there are several similarities and differences. In the original paper, neither 'IRR (Preqin)' nor 'IRR (All)' showed significant influence on ESG scores. In contrast, this paper's results identify a positive relationship between IRR and ESG scores. This discrepancy suggests that firm performance, as measured by IRR, might indeed predict ESG activities. The original paper also considered the variables 'Log Fund Size' and 'Staff Count' as potential regressors, and found that neither variable had a statistically significant relation with a firm's ESG Score. This paper did not apply a log to the fund size, and had replaced the data for staff (instead of using Preqin's data, LinkedIn's data was used). However, despite the aforementioned changes to the data,this paper also found that neither of these two variables had a significant relation with ESG scores. 
 
-## Weaknesses
+## Limitations
+
+There are several limitations and weaknesses. The original dataset, crafted by the authors of the base paper, introduces potential biases due to the subjectivity involved in data collection, such as the use on website content analysis to determine a large number of the variables. Even with this paper's efforts to mitigate subjectivity in this study, there are elements that retain a subjective component, particularly those collected by the original authors. This could influence the accuracy and reliability of the dataset used in our analysis. The study focuses exclusively on the top 100 U.S.-based private equity firms, which may not be representative of smaller or non-U.S. firms. This limited scope may introduce bias, potentially overlooking trends and practices in smaller or regional private equity firms that could differ from those in larger, more global firms. Additionally, the exclusion of certain types of firms, such as investment banks, might limit the external validity of the findings. For instance, discerning genuine ESG commitment from mere lip service can be challenging, potentially affecting the reliability of the ESG scores assigned to each firm. Moreover, the decision to opt for a summing method instead of averaging the ESG scores across categories may have implications on the interpretation of the ESG-Score. This methodological choice might not capture the nuances firms might have in their ESG practices. Furthermore, the exclusion of the Weighted ESG-Score, which was part of the original methodology, might overlook the importance of environmental factors, given the global emphasis on environmental sustainability. The regression results present associations rather than causality. Whilst the study identifies relationships between firm characteristics and ESG scores, it does not establish causative links. Also, using LinkedIn for gathering staff count introduces potential inaccuracies. Firstly, the data from LinkedIn was from 2024, whereas the rest of the metrics is from 2022. Moreover, the data from LinkedIn might not be up-to-date or fully reflective of the actual number of employees, given that not all employees maintain or update their LinkedIn profiles regularly. This could lead to an underestimation or overestimation of staff counts, affecting the analysis.
 
 ## Future Research
+
+Whilst this study has examined several firm-specific variables like fund size, IRR, and staff count, there remain other potentially influential factors that could shape ESG practices. For instance, firm age, geographical location, and the presence of specific ESG committees or policies might provide additional insights into the determinants of ESG scores. Investigating these additional variables could offer a more comprehensive understanding of the factors driving ESG commitments in private equity firms and help identify new avenues for promoting and enhancing ESG practices. Moreover, expanding the analysis to include firms from different regions or countries could provide valuable insights into the global trends, practices, and challenges in ESG commitments. Furthermore, whilst quantitative analysis provides valuable insights into the trends, patterns, and relationships between variables, incorporating qualitative methods like interviews, case studies, or stakeholder engagement could offer a richer, more nuanced understanding of the motivations, challenges, strategies, and perceptions behind ESG practices. Understanding the perspectives and preferences of various stakeholders, including investors, employees, communities, and industry peers, could shed light on the human aspects, motivations, and dynamics influencing ESG commitments within private equity firms. 
 
 \newpage
 
@@ -359,25 +363,6 @@ ESG performance and initiatives.
 - `Other_ESGAwards`: A dummy variable indicating whether the private equity firm has received any awards or recognition for its ESG
 practices. 
 - `Other_HasESGHeadorCommittee`: A dummy variable indicating whether the private equity firm has an appointed individual or committee responsible for overseeing ESG matters within the organisation.
-
-# Additional data details
-
-# Model details {#sec-model-details}
-
-## Posterior predictive check
-
-
-```{r}
-
-```
-
-## Diagnostics
-
-
-```{r}
-
-```
-
 
 
 \newpage
