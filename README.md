@@ -2,8 +2,9 @@
 
 ## Overview
 
-This repo provides students with a foundation for their own projects associated with *Telling Stories with Data*. You do not need every aspect for every paper and you should delete aspects that you do not need.
+This repo contains the data, R scripts, shiny web app, and final PDF report used. 
 
+Link to original paper: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4503661 (https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4503661) 
 
 ## File Structure
 
